@@ -16,6 +16,14 @@ from linebot.models import (
 
 
 TEAM_SYMBOLS = ('RED', 'YELLOW', 'BLUE', 'GREEN')
+REPLY_DEFAULT = (
+    'できること:\n'
+    'チーム分け: チーム 10\n'
+    '　10人を2チームに分けます\n'
+    'スパイ戦: スパイ 10 1\n'
+    '　10人を2チームに分けます。\n'
+    '　チームごとに1人ずつのスパイを配役します'
+    )
 
 
 app = Flask(__name__)
@@ -35,7 +43,7 @@ handler = WebhookHandler(channel_secret)
 
 @app.route('/callback', methods=['POST'])
 def callback():
-    signature = request.haeaders['X-Line-Signature']
+    signature = request.headers['X-Line-Signature']
     body = request.get_data(as_text=True)
     app.logger.info(f"Request body: {body}")
 
@@ -50,6 +58,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text
+    reply = REPLY_DEFAULT
     if text.startswith('チーム'):
         reply = get_grouping(text)
     elif text.startswith('スパイ'):
@@ -117,11 +126,5 @@ def get_casting_spy(text):
 
 
 if __name__ == "__main__":
-    arg_parser = ArgumentParser(
-        usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
-    )
-    arg_parser.add_argument('-p', '--port', default=8000, help='port')
-    arg_parser.add_argument('-d', '--debug', default=False, help='debug')
-    options = arg_parser.parse_args()
-
-    app.run(debug=options.debug, port=options.port)
+    port = int(os.getenv('PORT', 8080))
+    app.run(host='0.0.0.0', port=port)
