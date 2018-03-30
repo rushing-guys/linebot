@@ -16,7 +16,7 @@ from linebot.models import (
 
 
 TEAM_SYMBOLS = ('RED', 'YELLOW', 'BLUE', 'GREEN')
-REPLY_DEFAULT = (
+HELP_MESSAGE = (
     'できること:\n'
     'チーム分け: チーム 10\n'
     '　10人を2チームに分けます\n'
@@ -58,11 +58,18 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text
-    reply = REPLY_DEFAULT
-    if text.startswith('チーム'):
+    reply = None
+    if 'できること' in text:
+        reply = HELP_MESSAGE
+    elif text.startswith('チーム'):
         reply = get_grouping(text)
     elif text.startswith('スパイ'):
         reply = get_casting_spy(text)
+
+    print(reply)
+
+    if not reply:
+        return
 
     line_bot_api.reply_message(
         event.reply_token,
