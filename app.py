@@ -57,6 +57,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
+    print(event)
     text = event.message.text
     reply = None
     if 'できること' in text:
