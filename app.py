@@ -52,7 +52,7 @@ def callback():
     except InvalidSignatureError:
         abort(400)
 
-    return
+    return 'noreply'
 
 
 @handler.add(MessageEvent, message=TextMessage)
