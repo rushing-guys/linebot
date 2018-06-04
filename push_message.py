@@ -18,8 +18,14 @@ if __name__ == '__main__':
         )
     arg_parser.add_argument('-a', '--access-token', help='アクセストークン')
     arg_parser.add_argument('-t', '--to-id', help='送り先ID')
-    arg_parser.add_argument('-m', '--message', help='メッセージ')
-    options = arg_parser.parse_args()
+    # パイプとかリダイレクションからも message を取得
+    arg_parser.add_argument(
+        '-m', '--message', help='メッセージ',
+        default=sys.stdin
+        )
+    options = arg_parser.parse_args(args=sys.argv[1:])
+    if not isinstance(options.message, str):
+        options.message = options.message.read()
 
     # コマンドライン引数の方が高優先度
     access_token = options.access_token or os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
