@@ -1,17 +1,23 @@
 import os
 import sys
-from argparse import ArgumentParser
 from random import sample
 
-from flask import Flask, request, abort
+from flask import (
+    Flask,
+    request,
+    abort
+)
 from linebot import (
-    LineBotApi, WebhookHandler
+    LineBotApi,
+    WebhookHandler
 )
 from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent,
+    TextMessage,
+    TextSendMessage,
 )
 
 
