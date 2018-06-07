@@ -21,7 +21,7 @@ from linebot.models import (
 )
 
 
-TEAM_SYMBOLS = ('RED', 'YELLOW', 'BLUE', 'GREEN')
+TEAM_SYMBOLS = ('RED', 'BLUE', 'YELLOW', 'GREEN')
 HELP_MESSAGE = (
     'できること:\n'
     'チーム分け: チーム 10\n'
