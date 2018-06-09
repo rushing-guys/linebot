@@ -5,14 +5,14 @@ from random import sample
 from flask import (
     Flask,
     request,
-    abort
+    abort,
 )
 from linebot import (
     LineBotApi,
-    WebhookHandler
+    WebhookHandler,
 )
 from linebot.exceptions import (
-    InvalidSignatureError
+    InvalidSignatureError,
 )
 from linebot.models import (
     MessageEvent,
