@@ -21,15 +21,20 @@ from linebot.models import (
 )
 
 
-TEAM_SYMBOLS = ('RED', 'BLUE', 'YELLOW', 'GREEN')
-HELP_MESSAGE = (
-    'できること:\n'
-    'チーム分け: チーム 10\n'
-    '　10人を2チームに分けます\n'
-    'スパイ戦: スパイ 10 1\n'
-    '　10人を2チームに分けます。\n'
-    '　チームごとに1人ずつのスパイを配役します'
+TEAM_SYMBOLS = (
+    'RED',
+    'BLUE',
+    'YELLOW',
+    'GREEN',
     )
+HELP_MESSAGE = '\n'.join((
+    'できること:',
+    'チーム分け: チーム 10',
+    '　10人を2チームに分けます',
+    'スパイ戦: スパイ 10 1',
+    '　10人を2チームに分けます。',
+    '　チームごとに1人ずつのスパイを配役します',
+    ))
 
 
 app = Flask(__name__)
